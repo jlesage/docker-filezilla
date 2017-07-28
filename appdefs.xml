@@ -1,0 +1,46 @@
+<!--
+Definitions for FileZilla docker container.
+
+This file is used as data source to generate README.md and unRAID template files
+from Jinja2 templates.
+-->
+<defs>
+  <app>
+    <id>9</id>
+    <gui>True</gui>
+    <friendly_name>FileZilla</friendly_name>
+    <name>{{ defs.app.friendly_name|lower|replace(' ', '-') }}</name>
+    <project>
+      <description>FileZilla is a cross-platform graphical FTP, SFTP, and FTPS file management tool with a vast list of features.</description>
+      <url>https://filezilla-project.org/</url>
+    </project>
+    <unraid>
+      <support_url>https://forums.lime-technology.com/topic/XXXXX-support-filezilla/</support_url>
+      <category>Network:FTP</category>
+    </unraid>
+    <container>
+      <rough_download_size>100MB</rough_download_size>
+      <storage_permissions>rw</storage_permissions>
+    </container>
+    <!-- Extra stuff to be added to the documentation. -->
+    <documentation/>
+    <!-- Changelog of the application. -->
+    <history>
+      <release>
+        <version>1.0.0</version>
+        <date>2017-07-27</date>
+        <change>Initial release.</change>
+      </release>
+    </history>
+  </app>
+  <container>
+    <!-- Environment variables -->
+    <environment_variables/>
+    <!-- Volumes -->
+    <volumes/>
+    <!-- Network ports -->
+    <ports/>
+    <!-- Devices -->
+    <devices/>
+  </container>
+</defs>
