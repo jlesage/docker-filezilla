@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+# Filezilla doesn't save everything when terminated with signals.
+xdotool key "Escape"
+xdotool key "ctrl+q"

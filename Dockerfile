@@ -77,6 +77,7 @@ RUN \
 # Install dependencies.
 RUN \
     add-pkg \
+        xdotool \
         gtk+2.0 \
         libidn \
         sdl \
