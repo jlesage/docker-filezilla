@@ -59,8 +59,12 @@ RUN \
     # Download sources.
     echo "Downloading FileZilla package..." && \
     curl -# -L ${FILEZILLA_URL} | tar xj && \
-    # Compile.
     cd filezilla-${FILEZILLA_VERSION} && \
+    # Patch source code: open local files without extension with the same logic
+    # as remote ones.  This way, user's settings are used, which allow us to
+    # use a default editor for all files.
+    sed-patch 's/wxString cmd = GetSystemOpenCommand(fn.GetFullPath(), program_exists);/wxString cmd = pEditHandler->GetOpenCommand(fn.GetFullPath(), program_exists);/' src/interface/LocalListView.cpp && \
+    # Compile.
     ./configure \
         --without-dbus \
         --disable-autoupdatecheck && \
@@ -77,7 +81,11 @@ RUN \
 # Install dependencies.
 RUN \
     add-pkg \
+        # The following package is used to send key presses to the X process.
         xdotool \
+        # The following package is the X editor.
+        leafpad \
+        # The following packages are needed by FileZilla.
         gtk+2.0 \
         libidn \
         sdl \
@@ -85,6 +93,15 @@ RUN \
         pugixml@testing \
         wxgtk@community \
         ttf-dejavu
+
+# Adjust the openbox config.
+RUN \
+    # Maximize only the main/initial window.
+    sed-patch 's/<application type="normal">/<application type="normal" title="FileZilla">/' \
+        /etc/xdg/openbox/rc.xml && \
+    # Make sure the main window is always in the background.
+    sed-patch '/<application type="normal" title="FileZilla">/a \    <layer>below</layer>' \
+        /etc/xdg/openbox/rc.xml
 
 # Generate and install favicons.
 RUN \
