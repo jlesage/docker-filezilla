@@ -27,6 +27,14 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.0</version>
+        <date>2017-07-31</date>
+        <change>FileZilla does not support being terminated with signals.  So when the container is stopped, try closing FileZilla by simulating ctrl+q key presses.  This allows FileZilla to save all its configuration files.</change>
+        <change>Fixed error with host keys saving.</change>
+        <change>Create required directories.</change>
+        <change>Added text editor to allow editing files from FileZilla.</change>
+      </release>
+      <release>
         <version>1.0.1</version>
         <date>2017-07-31</date>
         <change>Now using baseimage v2.0.5, which brings the following changes (from last used version):</change>
