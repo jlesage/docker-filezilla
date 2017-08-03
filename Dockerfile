@@ -10,10 +10,12 @@ FROM jlesage/baseimage-gui:alpine-3.6-v2.0.5
 # Define software versions.
 ARG LIBFILEZILLA_VERSION=0.10.0
 ARG FILEZILLA_VERSION=3.27.0.1
+ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=http://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
 ARG FILEZILLA_URL=https://sourceforge.net/projects/filezilla/files/FileZilla_Client/${FILEZILLA_VERSION}/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
+ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
@@ -78,13 +80,45 @@ RUN \
         wxgtk-dev && \
     rm -rf /tmp/*
 
+# Compile VIM.
+RUN \
+    # Install build dependencies.
+    add-pkg --virtual build-dependencies \
+        curl \
+        build-base \
+        ncurses-dev \
+        libxt-dev \
+        gtk+2.0-dev && \
+    # Download sources.
+    curl -# -L ${VIM_URL} | tar xz && \
+    # Compile.
+    cd vim-${VIM_VERSION} && \
+    ./configure --enable-gui=gtk2 \
+                --disable-nls \
+                --enable-multibyte \
+                --localedir=/tmp/vim-local \
+                --mandir=/tmp/vim-man \
+                --docdir=/tmp/vim-doc \
+                && \
+    echo '#define SYS_VIMRC_FILE "/etc/vim/vimrc"' >> src/feature.h && \
+    echo '#define SYS_GVIMRC_FILE "/etc/vim/gvimrc"' >> src/feature.h && \
+    cd src && \
+    make && \
+    make installvimbin && \
+    make installrtbase && \
+    cd .. && \
+    cd .. && \
+    # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/*
+
 # Install dependencies.
 RUN \
     add-pkg \
         # The following package is used to send key presses to the X process.
         xdotool \
-        # The following package is the X editor.
-        leafpad \
+        # The following package is needed by VIM.
+        ncurses \
         # The following packages are needed by FileZilla.
         gtk+2.0 \
         libidn \

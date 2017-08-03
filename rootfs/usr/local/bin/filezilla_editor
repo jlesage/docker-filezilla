@@ -1,0 +1,3 @@
+#!/bin/sh
+export HOME=/config
+exec /usr/local/bin/vim -f -g "$@"
