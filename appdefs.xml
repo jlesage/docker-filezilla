@@ -27,6 +27,11 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.1</version>
+        <date>2017-08-03</date>
+        <change>Changed the editor to gvim.</change>
+      </release>
+      <release>
         <version>1.1.0</version>
         <date>2017-07-31</date>
         <change>FileZilla does not support being terminated with signals.  So when the container is stopped, try closing FileZilla by simulating ctrl+q key presses.  This allows FileZilla to save all its configuration files.</change>
