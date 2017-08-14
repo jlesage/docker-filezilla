@@ -27,6 +27,12 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.2</version>
+        <date>2017-08-14</date>
+        <change>Now using baseimage v2.0.6, which brings the following changes:</change>
+        <change level="2">Upgraded S6 overlay to version 1.20.0.0.</change>
+      </release>
+      <release>
         <version>1.1.1</version>
         <date>2017-08-03</date>
         <change>Changed the editor to gvim.</change>
