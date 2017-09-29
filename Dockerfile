@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-v2.0.8
+FROM jlesage/baseimage-gui:alpine-3.6-v2.0.9
 
 # Define software versions.
 ARG LIBFILEZILLA_VERSION=0.10.1
