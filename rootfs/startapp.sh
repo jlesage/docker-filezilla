@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/local/bin/filezilla --local=/storage
+exec /usr/local/bin/filezilla_wrapper --local=/storage
