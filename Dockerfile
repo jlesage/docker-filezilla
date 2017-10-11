@@ -22,25 +22,6 @@ ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
 # Define working directory.
 WORKDIR /tmp
 
-# Compile libfilezilla.
-RUN \
-    # Install build dependencies.
-    add-pkg --virtual build-dependencies \
-        curl \
-        file \
-        build-base \
-        && \
-    # Download sources.
-    curl -# -L ${LIBFILEZILLA_URL} | tar xj && \
-    # Compile.
-    cd libfilezilla-${LIBFILEZILLA_VERSION} && \
-    ./configure && \
-    make install && \
-    cd .. && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
-
 # Compile FileZilla.
 # NOTE: FileZilla is affected by a wxWidgets bug fixed by the following commit:
 #       https://github.com/wxWidgets/wxWidgets/commit/ce1dce1.
@@ -79,6 +60,7 @@ RUN \
     # Download sources.
     echo "Downloading sources..." && \
     curl -# -L ${WXWIDGETS_URL} | tar xj && \
+    curl -# -L ${LIBFILEZILLA_URL} | tar xj && \
     curl -# -L ${FILEZILLA_URL} | tar xj && \
     # Compile wxWidgets.
     cd wxWidgets-${WXWIDGETS_VERSION} && \
@@ -98,6 +80,15 @@ RUN \
         --disable-optimise \
         && \
     make install && \
+    strip /usr/lib/libwx_* && \
+    cd .. && \
+    # Compile libfilezilla.
+    cd libfilezilla-${LIBFILEZILLA_VERSION} && \
+    ./configure \
+        --prefix=/tmp/libfilezilla_install \
+        --enable-shared=no \
+        && \
+    make install && \
     cd .. && \
     # Compile FileZilla.
     cd filezilla-${FILEZILLA_VERSION} && \
@@ -105,12 +96,15 @@ RUN \
     # as remote ones.  This way, user's settings are used, which allow us to
     # use a default editor for all files.
     sed-patch 's/wxString cmd = GetSystemOpenCommand(fn.GetFullPath(), program_exists);/wxString cmd = pEditHandler->GetOpenCommand(fn.GetFullPath(), program_exists);/' src/interface/LocalListView.cpp && \
-    ./configure \
+    env PKG_CONFIG_PATH=/tmp/libfilezilla_install/lib/pkgconfig ./configure \
         --prefix=/usr \
         --with-pugixml=builtin \
         --without-dbus \
-        --disable-autoupdatecheck && \
+        --disable-autoupdatecheck \
+        --disable-manualupdatecheck \
+        && \
     make install && \
+    strip /usr/bin/filezilla && \
     rm /usr/share/applications/filezilla.desktop && \
     rm -r /usr/share/applications && \
     cd .. && \
@@ -145,12 +139,12 @@ RUN \
     ./configure \
         --prefix=/usr \
         --enable-gui=gtk2 \
-            --disable-nls \
-            --enable-multibyte \
-            --localedir=/tmp/vim-local \
-            --mandir=/tmp/vim-man \
-            --docdir=/tmp/vim-doc \
-            && \
+        --disable-nls \
+        --enable-multibyte \
+        --localedir=/tmp/vim-local \
+        --mandir=/tmp/vim-man \
+        --docdir=/tmp/vim-doc \
+        && \
     echo '#define SYS_VIMRC_FILE "/etc/vim/vimrc"' >> src/feature.h && \
     echo '#define SYS_GVIMRC_FILE "/etc/vim/gvimrc"' >> src/feature.h && \
     cd src && \
