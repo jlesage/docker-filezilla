@@ -68,11 +68,12 @@ RUN \
     sed-patch 's/wxString cmd = GetSystemOpenCommand(fn.GetFullPath(), program_exists);/wxString cmd = pEditHandler->GetOpenCommand(fn.GetFullPath(), program_exists);/' src/interface/LocalListView.cpp && \
     # Compile.
     ./configure \
+        --prefix=/usr \
         --without-dbus \
         --disable-autoupdatecheck && \
     make install && \
-    rm /usr/local/share/applications/filezilla.desktop && \
-    rm -r /usr/local/share/applications && \
+    rm /usr/share/applications/filezilla.desktop && \
+    rm -r /usr/share/applications && \
     cd .. && \
     # Cleanup.
     del-pkg build-dependencies \
@@ -93,13 +94,15 @@ RUN \
     curl -# -L ${VIM_URL} | tar xz && \
     # Compile.
     cd vim-${VIM_VERSION} && \
-    ./configure --enable-gui=gtk2 \
-                --disable-nls \
-                --enable-multibyte \
-                --localedir=/tmp/vim-local \
-                --mandir=/tmp/vim-man \
-                --docdir=/tmp/vim-doc \
-                && \
+    ./configure \
+        --prefix=/usr \
+        --enable-gui=gtk2 \
+            --disable-nls \
+            --enable-multibyte \
+            --localedir=/tmp/vim-local \
+            --mandir=/tmp/vim-man \
+            --docdir=/tmp/vim-doc \
+            && \
     echo '#define SYS_VIMRC_FILE "/etc/vim/vimrc"' >> src/feature.h && \
     echo '#define SYS_GVIMRC_FILE "/etc/vim/gvimrc"' >> src/feature.h && \
     cd src && \

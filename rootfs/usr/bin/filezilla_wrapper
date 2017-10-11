@@ -23,7 +23,7 @@ then
 fi
 
 # Start FileZilla in background.
-/usr/local/bin/filezilla --local=/storage &
+/usr/bin/filezilla --local=/storage &
 
 # And wait for its termination.
 PID=$!

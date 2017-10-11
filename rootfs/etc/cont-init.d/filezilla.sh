@@ -16,7 +16,7 @@ mkdir -p "$XDG_DATA_HOME"             # Looks like FileZilla is not creating thi
 [ -f "$XDG_CONFIG_HOME"/filezilla/filezilla.xml ] || cp -v /defaults/filezilla.xml "$XDG_CONFIG_HOME"/filezilla/
 
 # Make sure FileZilla is set to used our default editor.
-sed -i 's|<Setting name="Default editor">.*|<Setting name="Default editor">2/usr/local/bin/filezilla_editor</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
+sed -i 's|<Setting name="Default editor">.*|<Setting name="Default editor">2/usr/bin/filezilla_editor</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
 sed -i 's|<Setting name="Always use default editor">.*|<Setting name="Always use default editor">1</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
 
 # Take ownership of the config directory.
