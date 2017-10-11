@@ -42,7 +42,7 @@ RUN \
     cd .. && \
     # Cleanup.
     del-pkg build-dependencies && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* /tmp/.[!.]*
 
 # Compile FileZilla.
 RUN \
@@ -79,7 +79,7 @@ RUN \
     del-pkg build-dependencies \
         pugixml-dev \
         wxgtk-dev && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* /tmp/.[!.]*
 
 # Compile VIM.
 RUN \
@@ -113,7 +113,7 @@ RUN \
     cd .. && \
     # Cleanup.
     del-pkg build-dependencies && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* /tmp/.[!.]*
 
 # Install dependencies.
 RUN \
