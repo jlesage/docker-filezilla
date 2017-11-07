@@ -27,6 +27,16 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.0</version>
+        <date>2017-11-06</date>
+        <change>Now using baseimage v3.1.2, which brings the following changes (from last used version):</change>
+        <change level="2">Fixed an issue where a self-disabled service could be restarted.</change>
+        <change level="2">Upgraded S6 overlay to version 1.21.2.0.</change>
+        <change level="2">Use a more efficient way to monitor status files.</change>
+        <change>Upgraded FileZilla to version 3.29.0.</change>
+        <change>Upgraded libfilezilla to version 0.11.1.</change>
+      </release>
+      <release>
         <version>1.4.0</version>
         <date>2017-10-29</date>
         <change>Now using baseimage v3.1.0, which brings the following changes:</change>
