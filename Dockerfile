@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-v3.1.0
+FROM jlesage/baseimage-gui:alpine-3.6-v3.1.2
 
 # Define software versions.
 ARG WXWIDGETS_VERSION=3.0.3
