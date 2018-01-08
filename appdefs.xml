@@ -27,6 +27,12 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.0</version>
+        <date>2018-01-08</date>
+        <change>Upgraded FileZilla to version 3.30.0.</change>
+        <change>Upgraded libfilezilla to version 0.11.2.</change>
+      </release>
+      <release>
         <version>1.5.2</version>
         <date>2017-12-12</date>
         <change>Now using baseimage v3.1.4, which brings the following changes:</change>
