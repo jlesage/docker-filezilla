@@ -128,7 +128,7 @@ docker stop filezilla
 ```
   3. Remove the container:
 ```
-docker stop filezilla
+docker rm filezilla
 ```
   4. Start the container using the `docker run` command.
 
