@@ -19,7 +19,7 @@ mkdir -p "$XDG_DATA_HOME"             # Looks like FileZilla is not creating thi
 sed -i 's|<Setting name="Default editor">.*|<Setting name="Default editor">2/usr/bin/filezilla_editor</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
 sed -i 's|<Setting name="Always use default editor">.*|<Setting name="Always use default editor">1</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
 
-# Take ownership of the config directory.
-chown -R $USER_ID:$GROUP_ID /config
+# Take ownership of the config directory content.
+chown -R $USER_ID:$GROUP_ID /config/*
 
 # vim: set ft=sh :
