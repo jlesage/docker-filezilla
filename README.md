@@ -13,6 +13,27 @@ FileZilla is a cross-platform graphical FTP, SFTP, and FTPS file management tool
 
 ---
 
+## Table of Content
+
+   * [Docker container for FileZilla](#docker-container-for-filezilla)
+      * [Table of Content](#table-of-content)
+      * [Quick Start](#quick-start)
+      * [Usage](#usage)
+         * [Environment Variables](#environment-variables)
+         * [Data Volumes](#data-volumes)
+         * [Ports](#ports)
+      * [Docker Compose File](#docker-compose-file)
+      * [Docker Image Update](#docker-image-update)
+      * [User/Group IDs](#usergroup-ids)
+      * [Accessing the GUI](#accessing-the-gui)
+      * [Security](#security)
+         * [Certificates](#certificates)
+         * [VNC Password](#vnc-password)
+      * [Reverse Proxy](#reverse-proxy)
+         * [Routing Based on Hostname](#routing-based-on-hostname)
+         * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [Support or Contact](#support-or-contact)
+
 ## Quick Start
 
 **NOTE**: The Docker command provided in this quick start is given as an example
