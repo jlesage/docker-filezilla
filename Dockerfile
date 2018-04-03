@@ -8,7 +8,7 @@
 FROM jlesage/baseimage-gui:alpine-3.7-v3.3.4
 
 # Define software versions.
-ARG WXWIDGETS_VERSION=3.0.3
+ARG WXWIDGETS_VERSION=3.0.4
 ARG LIBFILEZILLA_VERSION=0.12.1
 ARG FILEZILLA_VERSION=3.32.0
 ARG VIM_VERSION=8.0.0830
@@ -23,11 +23,6 @@ ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
 WORKDIR /tmp
 
 # Compile FileZilla.
-# NOTE: FileZilla is affected by a wxWidgets bug fixed by the following commit:
-#       https://github.com/wxWidgets/wxWidgets/commit/ce1dce1.
-#       This fix is not yet included in an official release.  Thus, wxWidgets
-#       needs to be manually patched and compiled until a new version is
-#       released.
 RUN \
     # Install build dependencies.
     add-pkg --virtual build-dependencies-common \
@@ -64,8 +59,6 @@ RUN \
     curl -# -L ${FILEZILLA_URL} | tar xj && \
     # Compile wxWidgets.
     cd wxWidgets-${WXWIDGETS_VERSION} && \
-    curl -# -L -o assert.patch https://github.com/wxWidgets/wxWidgets/commit/ce1dce113c5eda42f49ba3278bb21c61872ca37d.patch && \
-    patch -p1 < assert.patch && \
     ./configure \
         --prefix=/usr \
         --with-sdl \
