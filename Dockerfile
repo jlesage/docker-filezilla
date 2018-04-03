@@ -10,7 +10,7 @@ FROM jlesage/baseimage-gui:alpine-3.6-v3.3.4
 # Define software versions.
 ARG WXWIDGETS_VERSION=3.0.3
 ARG LIBFILEZILLA_VERSION=0.12.1
-ARG FILEZILLA_VERSION=3.31.0
+ARG FILEZILLA_VERSION=3.32.0
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
