@@ -8,13 +8,11 @@
 FROM jlesage/baseimage-gui:alpine-3.8-v3.4.0
 
 # Define software versions.
-ARG WXWIDGETS_VERSION=3.0.4
 ARG LIBFILEZILLA_VERSION=0.13.0
 ARG FILEZILLA_VERSION=3.35.0
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
-ARG WXWIDGETS_URL=https://github.com/wxWidgets/wxWidgets/releases/download/v${WXWIDGETS_VERSION}/wxWidgets-${WXWIDGETS_VERSION}.tar.bz2
 ARG LIBFILEZILLA_URL=http://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
 ARG FILEZILLA_URL=http://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
 ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
@@ -25,56 +23,22 @@ WORKDIR /tmp
 # Compile FileZilla.
 RUN \
     # Install build dependencies.
-    add-pkg --virtual build-dependencies-common \
+    add-pkg --virtual build-dependencies \
         curl \
         file \
         patch \
         build-base \
-        && \
-    add-pkg --virtual build-dependencies-wxwidgets \
-        gtk+2.0-dev \
-        mesa-dev \
-        zlib-dev \
-        tiff-dev \
-        libjpeg-turbo-dev \
-        expat-dev \
-	libsm-dev \
-        glu-dev \
-        sdl-dev \
-        gst-plugins-base0.10-dev \
-	gstreamer0.10-dev \
-        gconf-dev \
-        && \
-    add-pkg --virtual build-dependencies-filezilla \
         libidn-dev \
         nettle-dev \
         gnutls-dev \
         sqlite-dev \
         xdg-utils \
+        wxgtk-dev \
         && \
     # Download sources.
     echo "Downloading sources..." && \
-    curl -# -L ${WXWIDGETS_URL} | tar xj && \
     curl -# -L ${LIBFILEZILLA_URL} | tar xj && \
     curl -# -L ${FILEZILLA_URL} | tar xj && \
-    # Compile wxWidgets.
-    cd wxWidgets-${WXWIDGETS_VERSION} && \
-    ./configure \
-        --prefix=/usr \
-        --with-sdl \
-        --with-opengl \
-        --enable-unicode \
-        --enable-aui \
-        --enable-no_deps \
-        --enable-shared \
-        --enable-sound \
-        --enable-mediactrl \
-        --disable-rpath \
-        --disable-optimise \
-        && \
-    make install && \
-    strip /usr/lib/libwx_* && \
-    cd .. && \
     # Compile libfilezilla.
     cd libfilezilla-${LIBFILEZILLA_VERSION} && \
     ./configure \
@@ -101,19 +65,8 @@ RUN \
     rm /usr/share/applications/filezilla.desktop && \
     rm -r /usr/share/applications && \
     cd .. && \
-    # Remove wxWidgets stuff that we no longer need.
-    rm -r /usr/include \
-          /usr/lib/wx/config \
-          /usr/bin/wxrc* \
-          /usr/share/bakefile \
-          /usr/lib/libwx_gtk2u_media-*.so.* \
-          && \
     # Cleanup.
-    del-pkg \
-         build-dependencies-common \
-         build-dependencies-wxwidgets \
-         build-dependencies-filezilla \
-        && \
+    del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
 # Compile VIM.
@@ -162,7 +115,8 @@ RUN \
         libidn \
         sdl \
         sqlite-libs \
-        ttf-dejavu
+        ttf-dejavu \
+        wxgtk
 
 # Adjust the openbox config.
 RUN \
