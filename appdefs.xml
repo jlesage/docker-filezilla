@@ -15,7 +15,7 @@ from Jinja2 templates.
       <url>https://filezilla-project.org/</url>
     </project>
     <unraid>
-      <support_url>https://forums.lime-technology.com/topic/59047-support-filezilla/</support_url>
+      <support_url>https://forums.unraid.net/topic/59047-support-filezilla/</support_url>
       <category>Network:FTP</category>
     </unraid>
     <container>
