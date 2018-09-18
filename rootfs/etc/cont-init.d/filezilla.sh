@@ -26,6 +26,6 @@ sed -i 's|<Setting name="Default editor">.*|<Setting name="Default editor">2/usr
 sed -i 's|<Setting name="Always use default editor">.*|<Setting name="Always use default editor">1</Setting>|' "$XDG_CONFIG_HOME"/filezilla/filezilla.xml
 
 # Take ownership of the config directory content.
-chown -R $USER_ID:$GROUP_ID /config/*
+find /config -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
 
 # vim: set ft=sh :
