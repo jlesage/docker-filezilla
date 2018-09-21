@@ -13,8 +13,8 @@ ARG FILEZILLA_VERSION=3.37.1
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
-ARG LIBFILEZILLA_URL=http://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
-ARG FILEZILLA_URL=http://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
+ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
+ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
 ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
 
 # Define working directory.
