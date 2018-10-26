@@ -116,7 +116,9 @@ RUN \
         sdl \
         sqlite-libs \
         ttf-dejavu \
-        wxgtk
+        wxgtk \
+        # GTK theme.
+        adwaita-gtk2-theme
 
 # Adjust the openbox config.
 RUN \
