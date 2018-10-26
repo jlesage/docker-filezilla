@@ -27,6 +27,13 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.14.0</version>
+        <date>2018-10-26</date>
+        <change>Upgraded FileZilla to version 3.38.0.</change>
+        <change>Upgraded libfilezilla to version 0.15.0.</change>
+        <change>Switched to the Adwaita GTK theme.</change>
+      </release>
+      <release>
         <version>1.13.2</version>
         <date>2018-10-04</date>
         <change>Upgraded FileZilla to version 3.37.4.</change>
