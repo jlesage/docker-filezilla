@@ -8,7 +8,7 @@
 FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.16.0
+ARG LIBFILEZILLA_VERSION=0.17.1
 ARG FILEZILLA_VERSION=3.43.0
 ARG VIM_VERSION=8.0.0830
 
