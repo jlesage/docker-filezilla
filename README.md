@@ -1,7 +1,7 @@
 # Docker container for FileZilla
 [![Docker Automated build](https://img.shields.io/docker/automated/jlesage/filezilla.svg)](https://hub.docker.com/r/jlesage/filezilla/) [![Docker Image](https://images.microbadger.com/badges/image/jlesage/filezilla.svg)](http://microbadger.com/#/images/jlesage/filezilla) [![Build Status](https://travis-ci.org/jlesage/docker-filezilla.svg?branch=master)](https://travis-ci.org/jlesage/docker-filezilla) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filezilla.svg)](https://github.com/jlesage/docker-filezilla/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
-This is a Docker container for FileZilla.
+This is a Docker container for [FileZilla](https://filezilla-project.org/).
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
