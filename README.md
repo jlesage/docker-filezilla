@@ -1,5 +1,5 @@
 # Docker container for FileZilla
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/filezilla)](http://microbadger.com/#/images/jlesage/filezilla) [![Build Status](https://travis-ci.org/jlesage/docker-filezilla.svg?branch=master)](https://travis-ci.org/jlesage/docker-filezilla) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filezilla.svg)](https://github.com/jlesage/docker-filezilla/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/filezilla)](http://microbadger.com/#/images/jlesage/filezilla) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-filezilla/status.svg)](https://drone.le-sage.com/jlesage/docker-filezilla) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filezilla.svg)](https://github.com/jlesage/docker-filezilla/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
 This is a Docker container for [FileZilla](https://filezilla-project.org/).
 
