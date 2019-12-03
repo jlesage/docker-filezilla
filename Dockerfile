@@ -11,8 +11,8 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.18.2
-ARG FILEZILLA_VERSION=3.45.1
+ARG LIBFILEZILLA_VERSION=0.19.1
+ARG FILEZILLA_VERSION=3.46.0
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
