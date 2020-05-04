@@ -11,8 +11,8 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.20.2
-ARG FILEZILLA_VERSION=3.47.2.1
+ARG LIBFILEZILLA_VERSION=0.21.0
+ARG FILEZILLA_VERSION=3.48.0
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
@@ -54,10 +54,6 @@ RUN \
     cd filezilla-${FILEZILLA_VERSION} && \
     # Fix compilation,
     sed-patch '/^#define/a #include <list>' src/interface/Mainfrm.h && \
-    # Patch source code: open local files without extension with the same logic
-    # as remote ones.  This way, user's settings are used, which allow us to
-    # use a default editor for all files.
-    sed-patch 's/wxString cmd = GetSystemOpenCommand(fn.GetFullPath(), program_exists);/wxString cmd = pEditHandler->GetOpenCommand(fn.GetFullPath(), program_exists);/' src/interface/LocalListView.cpp && \
     env PKG_CONFIG_PATH=/tmp/libfilezilla_install/lib/pkgconfig ./configure \
         --prefix=/usr \
         --with-pugixml=builtin \
