@@ -11,8 +11,8 @@ FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.24.1
-ARG FILEZILLA_VERSION=3.50.0
+ARG LIBFILEZILLA_VERSION=0.25.0
+ARG FILEZILLA_VERSION=3.51.0
 ARG VIM_VERSION=8.0.0830
 
 # Define software download URLs.
@@ -47,6 +47,7 @@ RUN \
     ./configure \
         --prefix=/tmp/libfilezilla_install \
         --enable-shared=no \
+        --with-pic \
         && \
     make install && \
     cd .. && \
