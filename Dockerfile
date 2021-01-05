@@ -38,6 +38,11 @@ RUN \
         xdg-utils \
         wxgtk-dev \
         && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
     # Download sources.
     echo "Downloading sources..." && \
     curl -# -L ${LIBFILEZILLA_URL} | tar xj && \
@@ -80,6 +85,11 @@ RUN \
         ncurses-dev \
         libxt-dev \
         gtk+2.0-dev && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
     # Download sources.
     curl -# -L ${VIM_URL} | tar xz && \
     # Compile.
