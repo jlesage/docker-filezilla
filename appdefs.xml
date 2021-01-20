@@ -27,6 +27,11 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.29.3</version>
+        <date>2021-01-20</date>
+        <change>Updated FileZilla to version 3.52.2.</change>
+      </release>
+      <release>
         <version>1.29.2</version>
         <date>2021-01-08</date>
         <change>Updated FileZilla to version 3.52.0.5.</change>
