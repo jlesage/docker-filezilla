@@ -27,6 +27,11 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.31.0</version>
+        <date>2021-05-14</date>
+        <change>Updated FileZilla to version 3.54.1.</change>
+      </release>
+      <release>
         <version>1.30.2</version>
         <date>2021-04-13</date>
         <change>Now using baseimage version 3.5.7, which brings the following change:</change>
