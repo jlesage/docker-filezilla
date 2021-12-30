@@ -47,19 +47,22 @@ RUN \
     export LDFLAGS="-Wl,--as-needed" && \
     # Download sources.
     echo "Downloading sources..." && \
-    curl -# -L ${LIBFILEZILLA_URL} | tar xj && \
-    curl -# -L ${FILEZILLA_URL} | tar xj && \
+    mkdir /tmp/libfilezilla && \
+    curl -# -L ${LIBFILEZILLA_URL} | tar xj --strip 1 -C /tmp/libfilezilla && \
+    mkdir /tmp/filezilla && \
+    curl -# -L ${FILEZILLA_URL} | tar xj --strip 1 -C /tmp/filezilla && \
     # Compile libfilezilla.
-    cd libfilezilla-${LIBFILEZILLA_VERSION} && \
+    cd libfilezilla && \
     ./configure \
         --prefix=/tmp/libfilezilla_install \
         --enable-shared=no \
         --with-pic \
         && \
+    make -j$(nproc) && \
     make install && \
     cd .. && \
     # Compile FileZilla.
-    cd filezilla-${FILEZILLA_VERSION} && \
+    cd filezilla && \
     # Fix compilation,
     sed-patch '/^#define/a #include <list>' src/interface/Mainfrm.h && \
     env PKG_CONFIG_PATH=/tmp/libfilezilla_install/lib/pkgconfig ./configure \
@@ -69,6 +72,7 @@ RUN \
         --disable-autoupdatecheck \
         --disable-manualupdatecheck \
         && \
+    make -j$(nproc) && \
     make install && \
     strip /usr/bin/filezilla && \
     rm /usr/share/applications/filezilla.desktop && \
@@ -93,9 +97,10 @@ RUN \
     export CPPFLAGS="$CFLAGS" && \
     export LDFLAGS="-Wl,--as-needed" && \
     # Download sources.
-    curl -# -L ${VIM_URL} | tar xz && \
+    mkdir /tmp/vim && \
+    curl -# -L ${VIM_URL} | tar xz --strip 1 -C /tmp/vim && \
     # Compile.
-    cd vim-${VIM_VERSION} && \
+    cd vim && \
     ./configure \
         --prefix=/usr \
         --enable-gui=gtk2 \
@@ -108,7 +113,7 @@ RUN \
     echo '#define SYS_VIMRC_FILE "/etc/vim/vimrc"' >> src/feature.h && \
     echo '#define SYS_GVIMRC_FILE "/etc/vim/gvimrc"' >> src/feature.h && \
     cd src && \
-    make && \
+    make -j$(nproc) && \
     make installvimbin && \
     make installrtbase && \
     cd .. && \
