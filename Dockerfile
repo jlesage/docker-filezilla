@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.12-v3.5.7
+FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
@@ -14,11 +14,13 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG LIBFILEZILLA_VERSION=0.35.0
 ARG FILEZILLA_VERSION=3.57.0
 ARG VIM_VERSION=8.0.0830
+ARG GNOMETHEMES_VERSION=3.28
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
 ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
 ARG VIM_URL=https://github.com/vim/vim/archive/v${VIM_VERSION}.tar.gz
+ARG GNOMETHEMES_URL=https://download-fallback.gnome.org/sources/gnome-themes-extra/${GNOMETHEMES_VERSION}/gnome-themes-extra-${GNOMETHEMES_VERSION}.tar.xz
 
 # Define working directory.
 WORKDIR /tmp
@@ -115,6 +117,42 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
+# Compile GTK theme.
+RUN \
+    # Install build dependencies.
+    add-pkg --virtual build-dependencies \
+        curl \
+        build-base \
+        intltool \
+        gtk+2.0-dev \
+        librsvg-dev \
+        && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
+    # Download sources.
+    mkdir /tmp/gnome-themes-extra && \
+    curl -# -L https://download.gnome.org/sources/gnome-themes-extra/3.28/gnome-themes-extra-3.28.tar.xz | tar xJ --strip 1 -C /tmp/gnome-themes-extra && \
+    # Compile.
+    cd gnome-themes-extra && \
+    ./configure \
+        --prefix=/usr \
+        --disable-gtk3-engine \
+        && \
+    make -j$(nproc) && \
+    make DESTDIR=/tmp/gnome-themes-extra-install install && \
+    find /tmp/gnome-themes-extra-install -name "*.so" -exec strip {} ';' && \
+    find /tmp/gnome-themes-extra-install -name "*.la" -delete && \
+    mkdir -p /usr/share/themes/Adwaita && \
+    cp -av /tmp/gnome-themes-extra-install/usr/share/themes/Adwaita/gtk-2.0 /usr/share/themes/Adwaita/ && \
+    cp -av /tmp/gnome-themes-extra-install/usr/lib/gtk-2.0 /usr/lib/ && \
+    cd .. && \
+    # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/* /tmp/.[!.]*
+
 # Install dependencies.
 RUN \
     add-pkg \
@@ -128,9 +166,7 @@ RUN \
         sdl \
         sqlite-libs \
         ttf-dejavu \
-        wxgtk \
-        # GTK theme.
-        adwaita-gtk2-theme
+        wxgtk
 
 # Adjust the openbox config.
 RUN \
