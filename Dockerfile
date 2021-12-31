@@ -139,7 +139,7 @@ RUN \
     export LDFLAGS="-Wl,--as-needed" && \
     # Download sources.
     mkdir /tmp/gnome-themes-extra && \
-    curl -# -L https://download.gnome.org/sources/gnome-themes-extra/3.28/gnome-themes-extra-3.28.tar.xz | tar xJ --strip 1 -C /tmp/gnome-themes-extra && \
+    curl -# -L ${GNOMETHEMES_URL} | tar xJ --strip 1 -C /tmp/gnome-themes-extra && \
     # Compile.
     cd gnome-themes-extra && \
     ./configure \
