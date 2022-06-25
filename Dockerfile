@@ -72,6 +72,10 @@ RUN \
         --disable-autoupdatecheck \
         --disable-manualupdatecheck \
         && \
+    # Disable usage of memfd_create() system call, which is not available on
+    # older kernels (<3.17).  See:
+    #     https://github.com/jlesage/docker-filezilla/issues/27.
+    sed-patch 's|#define HAVE_MEMFD_CREATE 1|/* #undef HAVE_MEMFD_CREATE */|' /tmp/filezilla/config/config.h && \
     make -j$(nproc) && \
     make install && \
     strip /usr/bin/filezilla && \
