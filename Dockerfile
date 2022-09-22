@@ -11,8 +11,8 @@ FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.38.1
-ARG FILEZILLA_VERSION=3.60.2
+ARG LIBFILEZILLA_VERSION=0.39.1
+ARG FILEZILLA_VERSION=3.61.0
 ARG VIM_VERSION=8.0.0830
 ARG GNOMETHEMES_VERSION=3.28
 
@@ -72,10 +72,6 @@ RUN \
         --disable-autoupdatecheck \
         --disable-manualupdatecheck \
         && \
-    # Disable usage of memfd_create() system call, which is not available on
-    # older kernels (<3.17).  See:
-    #     https://github.com/jlesage/docker-filezilla/issues/27.
-    sed-patch 's|#define HAVE_MEMFD_CREATE 1|/* #undef HAVE_MEMFD_CREATE */|' /tmp/filezilla/config/config.h && \
     make -j$(nproc) && \
     make install && \
     strip /usr/bin/filezilla && \
