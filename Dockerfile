@@ -58,6 +58,10 @@ RUN \
         --enable-shared=no \
         --with-pic \
         && \
+    # Disable usage of memfd_create() system call, which is not available on
+    # older kernels (<3.17).  See:
+    #     https://github.com/jlesage/docker-filezilla/issues/27.
+    sed-patch 's|#define HAVE_MEMFD_CREATE 1|/* #undef HAVE_MEMFD_CREATE */|' /tmp/libfilezilla/config/config.hpp && \
     make -j$(nproc) && \
     make install && \
     cd .. && \
