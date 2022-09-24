@@ -27,6 +27,11 @@ from Jinja2 templates.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.36.1</version>
+        <date>2022-09-24</date>
+        <change>Restored fix for issue where transfers using sftp would fail on devices running older kernel.</change>
+      </release>
+      <release>
         <version>1.36.0</version>
         <date>2022-09-22</date>
         <change>Updated FileZilla to version 3.61.0.</change>
