@@ -9,7 +9,7 @@ ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
 ARG LIBFILEZILLA_VERSION=0.39.2
-ARG FILEZILLA_VERSION=3.62.0
+ARG FILEZILLA_VERSION=3.62.1
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
