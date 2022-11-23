@@ -22,6 +22,10 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 22.11.2
+      date: 2022-11-22
+      changes:
+        - 'Updated FileZilla to version 3.62.2.'
     - version: 22.11.1
       date: 2022-11-18
       changes:
