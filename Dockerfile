@@ -66,7 +66,7 @@ COPY --from=filezilla /tmp/filezilla-install/usr/share/locale /usr/share/locale
 # Set internal environment variables.
 RUN \
     set-cont-env APP_NAME "FileZilla" && \
-    set-cont-env APP_VERSION "$MKVTOOLNIX_VERSION" && \
+    set-cont-env APP_VERSION "$FILEZILLA_VERSION" && \
     set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
     true
 
