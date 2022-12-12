@@ -22,6 +22,10 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 22.12.1
+      date: 2022-12-11
+      changes:
+        - 'Updated baseimage to version `4.2.2`, which brings multiple internal enhancements.'
     - version: 22.11.2
       date: 2022-11-22
       changes:
