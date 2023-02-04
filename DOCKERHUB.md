@@ -8,7 +8,7 @@ installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![FileZilla logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/filezilla-icon.png&w=200)](https://filezilla-project.org)[![FileZilla](https://images.placeholders.dev/?width=288&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=FileZilla&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://filezilla-project.org)
+[![FileZilla logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/filezilla-icon.png&w=110)](https://filezilla-project.org)[![FileZilla](https://images.placeholders.dev/?width=288&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=FileZilla&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://filezilla-project.org)
 
 FileZilla is a cross-platform graphical FTP, SFTP, and FTPS file
 management tool with a vast list of features.
