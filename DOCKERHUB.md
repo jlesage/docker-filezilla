@@ -26,13 +26,13 @@ docker run -d \
     --name=filezilla \
     -p 5800:5800 \
     -v /docker/appdata/filezilla:/config:rw \
-    -v $HOME:/storage:rw \
+    -v /home/user:/storage:rw \
     jlesage/filezilla
 ```
 
 Where:
   - `/docker/appdata/filezilla`: This is where the application stores its configuration, states, log and any files needing persistency.
-  - `$HOME`: This location contains files from your host that need to be accessible to the application.
+  - `/home/user`: This location contains files from your host that need to be accessible to the application.
 
 Browse to `http://your-host-ip:5800` to access the FileZilla GUI.
 Files from the host appear under the `/storage` folder in the container.
