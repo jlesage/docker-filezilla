@@ -69,11 +69,11 @@ fi
 
 log "Downloading FileZilla package..."
 mkdir /tmp/filezilla
-curl -# -L ${FILEZILLA_URL} | tar xj --strip 1 -C /tmp/filezilla
+curl -# -L -f ${FILEZILLA_URL} | tar xJ --strip 1 -C /tmp/filezilla
 
 log "Downloading libfilezilla package..."
 mkdir /tmp/libfilezilla
-curl -# -L ${LIBFILEZILLA_URL} | tar xj --strip 1 -C /tmp/libfilezilla
+curl -# -L -f ${LIBFILEZILLA_URL} | tar xJ --strip 1 -C /tmp/libfilezilla
 
 #
 # Compile libfilezilla

@@ -8,12 +8,12 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.41.1
-ARG FILEZILLA_VERSION=3.63.2.1
+ARG LIBFILEZILLA_VERSION=0.42.2
+ARG FILEZILLA_VERSION=3.64.0
 
 # Define software download URLs.
-ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.bz2
-ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.bz2
+ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
+ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.xz
 
 # Get Dockerfile cross-compilation helpers.
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
