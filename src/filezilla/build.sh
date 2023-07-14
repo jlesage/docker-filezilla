@@ -50,6 +50,7 @@ xx-apk --no-cache --no-scripts add \
     gnutls-dev \
     sqlite-dev \
     libidn-dev \
+    boost-dev \
     wxgtk3-dev \
 
 # Fix wxWidgets install for cross-compile.
