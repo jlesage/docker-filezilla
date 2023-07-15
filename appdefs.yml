@@ -22,6 +22,11 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 23.07.1
+      date: 2023-07-15
+      changes:
+        - 'Updated FileZilla to version 3.65.0.'
+        - 'Updated libfilezilla to version 0.44.0.'
     - version: 23.06.1
       date: 2023-06-07
       changes:
