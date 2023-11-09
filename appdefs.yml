@@ -12,6 +12,7 @@ app:
   name: filezilla
   friendly_name: FileZilla
   gui_type: x11
+  base_os: alpine
   project:
     description: |-
       FileZilla is a cross-platform graphical FTP, SFTP, and FTPS file
