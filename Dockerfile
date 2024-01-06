@@ -30,7 +30,7 @@ RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.5.2
+FROM jlesage/baseimage-gui:alpine-3.16-v4.5.3
 
 ARG FILEZILLA_VERSION
 ARG DOCKER_IMAGE_VERSION
