@@ -31,7 +31,7 @@ fi
 
 #
 # Install required packages.
-# NOTE: wxgtk-base-dev needed for wxrc tool.
+# NOTE: wxwidgets-dev needed for wxrc tool.
 #
 apk --no-cache add \
     curl \
@@ -40,7 +40,7 @@ apk --no-cache add \
     binutils \
     pkgconf \
     gettext \
-    wxgtk-base-dev \
+    wxwidgets-dev \
 
 xx-apk --no-cache --no-scripts add \
     musl-dev \
@@ -51,17 +51,15 @@ xx-apk --no-cache --no-scripts add \
     sqlite-dev \
     libidn-dev \
     boost-dev \
-    wxgtk3-dev \
+    wxwidgets-dev \
+
+ln -s ../lib/wx/config/gtk3-unicode-3.2 /$(xx-info sysroot)usr/bin/wx-config-gtk3
 
 # Fix wxWidgets install for cross-compile.
 if xx-info is-cross
 then
-    # Fix symlinks to wx-config.
-    ln -sf wx-config-gtk3 /$(xx-info sysroot)usr/bin/wx-config
-    ln -sf ../lib/wx/config/gtk3-unicode-3.0 /$(xx-info sysroot)usr/bin/wx-config-gtk3
-
     # Ignore the --host option passed to wx-config.
-    sed -i 's/m_host=${input_option_host/#m_host=${input_option_host/' /$(xx-info sysroot)usr/lib/wx/config/gtk3-unicode-3.0
+    sed -i 's/m_host=${input_option_host/#m_host=${input_option_host/' /$(xx-info sysroot)usr/lib/wx/config/gtk3-unicode-3.2
 fi
 
 #

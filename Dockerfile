@@ -8,8 +8,8 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.45.0
-ARG FILEZILLA_VERSION=3.66.4
+ARG LIBFILEZILLA_VERSION=0.47.0
+ARG FILEZILLA_VERSION=3.67.0
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
@@ -19,7 +19,7 @@ ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILE
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 
 # Build FileZilla.
-FROM --platform=$BUILDPLATFORM alpine:3.16 AS filezilla
+FROM --platform=$BUILDPLATFORM alpine:3.17 AS filezilla
 ARG TARGETPLATFORM
 ARG FILEZILLA_URL
 ARG LIBFILEZILLA_URL
@@ -30,7 +30,7 @@ RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.6.3
+FROM jlesage/baseimage-gui:alpine-3.17-v4.6.3
 
 ARG FILEZILLA_VERSION
 ARG DOCKER_IMAGE_VERSION
@@ -41,7 +41,7 @@ WORKDIR /tmp
 # Install dependencies.
 RUN \
     add-pkg \
-        wxgtk3 \
+        wxwidgets-gtk3 \
         libidn \
         sqlite-libs \
         # Need a font.
