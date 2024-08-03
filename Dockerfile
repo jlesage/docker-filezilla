@@ -21,11 +21,11 @@ FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 # Build FileZilla.
 FROM --platform=$BUILDPLATFORM alpine:3.17 AS filezilla
 ARG TARGETPLATFORM
-ARG FILEZILLA_URL
-ARG LIBFILEZILLA_URL
+ARG FILEZILLA_VERSION
+ARG LIBFILEZILLA_VERSION
 COPY --from=xx / /
 COPY src/filezilla /build
-RUN /build/build.sh "$FILEZILLA_URL" "$LIBFILEZILLA_URL"
+RUN /build/build.sh "$FILEZILLA_VERSION" "$LIBFILEZILLA_VERSION"
 RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
