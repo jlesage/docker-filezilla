@@ -23,6 +23,16 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 24.12.1
+      date: 2024-12-07
+      changes:
+        - 'Updated FileZilla to version 3.68.1.'
+        - 'Updated libfilezilla to version 0.49.0.'
+        - 'Updated baseimage to version 4.6.7, which brings the following changes:'
+        - '2:Fixed web audio feature with URL path-based reverse proxy.'
+        - '2:Fixed TLS secure connection method for VNC that was preventing web access.'
+        - '2:Fixed CJK font installation.'
+        - '2:Rebuild against latest distro images to get security fixes.'
     - version: 24.09.1
       date: 2024-09-29
       changes:
