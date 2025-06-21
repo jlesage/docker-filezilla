@@ -19,7 +19,7 @@ ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILE
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 
 # Build FileZilla.
-FROM --platform=$BUILDPLATFORM alpine:3.17 AS filezilla
+FROM --platform=$BUILDPLATFORM alpine:3.20 AS filezilla
 ARG TARGETPLATFORM
 ARG FILEZILLA_VERSION
 ARG LIBFILEZILLA_VERSION
@@ -30,7 +30,7 @@ RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.17-v4.8.0
+FROM jlesage/baseimage-gui:alpine-3.20-v4.8.0
 
 ARG FILEZILLA_VERSION
 ARG DOCKER_IMAGE_VERSION
