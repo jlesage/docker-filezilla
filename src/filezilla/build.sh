@@ -16,16 +16,16 @@ function log {
     echo ">>> $*"
 }
 
-FILEZILLA_VERSION="$1"
-LIBFILEZILLA_VERSION="$2"
+FILEZILLA_URL="$1"
+LIBFILEZILLA_URL="$2"
 
-if [ -z "$FILEZILLA_VERSION" ]; then
-    log "ERROR: FileZilla version missing."
+if [ -z "$FILEZILLA_URL" ]; then
+    log "ERROR: FileZilla URL missing."
     exit 1
 fi
 
-if [ -z "$LIBFILEZILLA_VERSION" ]; then
-    log "ERROR: libfilezilla version missing."
+if [ -z "$LIBFILEZILLA_URL" ]; then
+    log "ERROR: libfilezilla URL missing."
     exit 1
 fi
 
@@ -68,25 +68,11 @@ fi
 
 log "Downloading FileZilla package..."
 mkdir /tmp/filezilla
-URL="$(curl -s -L -f --user-agent 'Firefox' 'https://filezilla-project.org/download.php?show_all=1' | sed -n -r "s/.*<a href=\"([^\"]+FileZilla_${FILEZILLA_VERSION}_src.tar.xz[^\"]+)\".*>.*/\1/p")"
-if [ -z "$URL" ]; then
-    log "ERROR: Could not fetch the FileZilla download URL."
-    exit 1
-else
-    log "URL: $URL"
-fi
-curl -# -L -f "$URL" | tar xJ --strip 1 -C /tmp/filezilla
+curl -# -L -f "$FILEZILLA_URL" | tar xJ --strip 1 -C /tmp/filezilla
 
 log "Downloading libfilezilla package..."
 mkdir /tmp/libfilezilla
-URL="$(curl -s -L -f --user-agent 'Firefox' 'https://lib.filezilla-project.org/download.php' | sed -n -r "s/.*<a href=\"([^\"]+libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz[^\"]+)\".*>.*/\1/p")"
-if [ -z "$URL" ]; then
-    log "ERROR: Could not fetch the libfilezilla download URL."
-    exit 1
-else
-    log "URL: $URL"
-fi
-curl -# -L -f "$URL" | tar xJ --strip 1 -C /tmp/libfilezilla
+curl -# -L -f "$LIBFILEZILLA_URL" | tar xJ --strip 1 -C /tmp/libfilezilla
 
 #
 # Compile libfilezilla

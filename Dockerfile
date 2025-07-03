@@ -12,8 +12,8 @@ ARG LIBFILEZILLA_VERSION=0.50.0
 ARG FILEZILLA_VERSION=3.69.1
 
 # Define software download URLs.
-ARG LIBFILEZILLA_URL=https://download.filezilla-project.org/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
-ARG FILEZILLA_URL=https://download.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_src.tar.xz
+ARG LIBFILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
+ARG FILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/filezilla/FileZilla_${FILEZILLA_VERSION}_src.tar.xz
 
 # Get Dockerfile cross-compilation helpers.
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
@@ -21,11 +21,11 @@ FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 # Build FileZilla.
 FROM --platform=$BUILDPLATFORM alpine:3.20 AS filezilla
 ARG TARGETPLATFORM
-ARG FILEZILLA_VERSION
-ARG LIBFILEZILLA_VERSION
+ARG FILEZILLA_URL
+ARG LIBFILEZILLA_URL
 COPY --from=xx / /
 COPY src/filezilla /build
-RUN /build/build.sh "$FILEZILLA_VERSION" "$LIBFILEZILLA_VERSION"
+RUN /build/build.sh "$FILEZILLA_URL" "$LIBFILEZILLA_URL"
 RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
