@@ -1,0 +1,11 @@
+--- a/src/engine/ftp/transfersocket.cpp	2025-07-25 08:13:55.189616397 -0400
++++ b/src/engine/ftp/transfersocket.cpp	2025-07-25 08:14:35.699420667 -0400
+@@ -475,7 +475,7 @@
+ 
+ bool CTransferSocket::SetupPassiveTransfer(std::wstring const& host, unsigned short port)
+ {
+-	passive_mode_data_.emplace();
++	passive_mode_data_.emplace(passive_mode_data{});
+ 	passive_mode_data_->host_ = fz::to_utf8(host);
+ 	passive_mode_data_->port_ = port;
+ 	return DoSetupPassiveTransfer();

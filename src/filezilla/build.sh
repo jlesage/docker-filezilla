@@ -12,6 +12,8 @@ export LDFLAGS="-Wl,--strip-all -Wl,--as-needed"
 export CC=xx-clang
 export CXX=xx-clang++
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 function log {
     echo ">>> $*"
 }
@@ -35,6 +37,7 @@ fi
 #
 apk --no-cache add \
     curl \
+    patch \
     clang \
     make \
     binutils \
@@ -104,6 +107,9 @@ make DESTDIR=$(xx-info sysroot) -C /tmp/libfilezilla install
 #
 # Compile FileZilla
 #
+
+log "Patching FileZilla..."
+patch -p1 -d /tmp/filezilla < "$SCRIPT_DIR"/fix-compilation.patch
 
 log "Configuring FileZilla..."
 sed -i 's/--disable-shellext/--disable-shellext --prefix="$prefix" --host=$host_alias/' /tmp/filezilla/configure
