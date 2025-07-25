@@ -8,8 +8,8 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.50.0
-ARG FILEZILLA_VERSION=3.69.1
+ARG LIBFILEZILLA_VERSION=0.51.0
+ARG FILEZILLA_VERSION=3.69.2
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
