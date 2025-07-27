@@ -23,6 +23,12 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 25.07.2
+      date: 2025-07-26
+      changes:
+        - 'Updated FileZilla to version 3.69.2.'
+        - 'Updated libfilezilla to version 0.51.0.'
+        - 'Updated baseimage to version 4.9.0.'
     - version: 25.07.1
       date: 2025-07-05
       changes:
