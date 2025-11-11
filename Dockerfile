@@ -8,8 +8,8 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.51.0
-ARG FILEZILLA_VERSION=3.69.2
+ARG LIBFILEZILLA_VERSION=0.51.1
+ARG FILEZILLA_VERSION=3.69.3
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
@@ -59,6 +59,7 @@ RUN \
 # Add files.
 COPY rootfs/ /
 COPY --from=filezilla /tmp/filezilla-install/usr/bin /usr/bin
+COPY --from=filezilla /tmp/filezilla-install/usr/lib/libfilezilla.so* /usr/lib/
 COPY --from=filezilla /tmp/filezilla-install/usr/share/filezilla /usr/share/filezilla
 COPY --from=filezilla /tmp/filezilla-install/usr/share/icons /usr/share/icons
 COPY --from=filezilla /tmp/filezilla-install/usr/share/locale /usr/share/locale

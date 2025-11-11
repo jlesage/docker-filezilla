@@ -89,8 +89,6 @@ log "Configuring libfilezilla..."
         --host=$(xx-clang --print-target-triple) \
         --prefix=/usr \
         --disable-doxygen-doc \
-        --enable-shared=no \
-        --enable-static=yes \
         --with-pic \
 )
 
@@ -103,6 +101,7 @@ make -C /tmp/libfilezilla -j$(nproc)
 
 log "Installing libfilezilla..."
 make DESTDIR=$(xx-info sysroot) -C /tmp/libfilezilla install
+make DESTDIR=/tmp/filezilla-install -C /tmp/libfilezilla install
 
 #
 # Compile FileZilla
