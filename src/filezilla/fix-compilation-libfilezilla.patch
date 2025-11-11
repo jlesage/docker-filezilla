@@ -1,0 +1,10 @@
+--- a/lib/local_filesys.cpp	2025-11-11 09:59:26.878513013 -0500
++++ b/lib/local_filesys.cpp	2025-11-11 09:59:47.735448573 -0500
+@@ -16,6 +16,7 @@
+ #include <unistd.h>
+ #include <string.h>
+ #include <utime.h>
++#include <limits.h>
+ #endif
+ 
+ namespace fz {

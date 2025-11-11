@@ -81,6 +81,9 @@ curl -# -L -f "$LIBFILEZILLA_URL" | tar xJ --strip 1 -C /tmp/libfilezilla
 # Compile libfilezilla
 #
 
+log "Patching libfilezilla..."
+patch -p1 -d /tmp/libfilezilla < "$SCRIPT_DIR"/fix-compilation-libfilezilla.patch
+
 log "Configuring libfilezilla..."
 (
     cd /tmp/libfilezilla && \
