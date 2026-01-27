@@ -631,7 +631,7 @@ app:
     - version: 1.1.0
       date: 2017-07-31
       changes:
-        - 'FileZilla does not support being terminated with signals.  So when the container is stopped, try closing FileZilla by simulating ctrl+q key presses.  This allows FileZilla to save all its configuration files.'
+        - 'FileZilla does not support being terminated with signals. So when the container is stopped, try closing FileZilla by simulating ctrl+q key presses. This allows FileZilla to save all its configuration files.'
         - 'Fixed error with host keys saving.'
         - 'Create required directories.'
         - 'Added text editor to allow editing files from FileZilla.'
