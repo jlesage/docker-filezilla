@@ -12,8 +12,8 @@ ARG LIBFILEZILLA_VERSION=0.54.1
 ARG FILEZILLA_VERSION=3.69.6
 
 # Define software download URLs.
-ARG LIBFILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
-ARG FILEZILLA_URL=https://dev.gentoo.org/~dlan/distfiles/filezilla/FileZilla_${FILEZILLA_VERSION}_src.tar.xz
+ARG LIBFILEZILLA_URL=https://sources.archlinux.org/other/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
+ARG FILEZILLA_URL=https://sources.archlinux.org/other/filezilla/filezilla-${FILEZILLA_VERSION}.tar.xz
 
 # Get Dockerfile cross-compilation helpers.
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
