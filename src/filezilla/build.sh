@@ -7,7 +7,7 @@ set -u # Treat unset variables as an error.
 export CFLAGS="-Os -fomit-frame-pointer"
 export CXXFLAGS="$CFLAGS"
 export CPPFLAGS="$CFLAGS"
-export LDFLAGS="-Wl,--strip-all -Wl,--as-needed"
+export LDFLAGS="-fuse-ld=lld -Wl,--strip-all -Wl,--as-needed"
 
 export CC=xx-clang
 export CXX=xx-clang++
@@ -45,6 +45,7 @@ apk --no-cache add \
     curl \
     patch \
     clang \
+    lld \
     meson \
     make \
     binutils \
