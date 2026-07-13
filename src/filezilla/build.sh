@@ -20,6 +20,7 @@ log() {
 
 FILEZILLA_URL="$1"
 LIBFILEZILLA_URL="$2"
+FZSSH_URL="$3"
 
 if [ -z "$FILEZILLA_URL" ]; then
     log "ERROR: FileZilla URL missing."
@@ -31,6 +32,11 @@ if [ -z "$LIBFILEZILLA_URL" ]; then
     exit 1
 fi
 
+if [ -z "$FZSSH_URL" ]; then
+    log "ERROR: fzssh URL missing."
+    exit 1
+fi
+
 #
 # Install required packages.
 # NOTE: wxwidgets-dev needed for wxrc tool.
@@ -39,8 +45,10 @@ apk --no-cache add \
     curl \
     patch \
     clang \
+    meson \
     make \
     binutils \
+    abuild \
     pkgconf \
     gettext \
     wxwidgets-dev \
@@ -53,6 +61,7 @@ xx-apk --no-cache --no-scripts add \
     gnutls-dev \
     sqlite-dev \
     libidn-dev \
+    argon2-dev \
     boost-dev \
     wxwidgets-dev \
 
@@ -65,6 +74,22 @@ then
     sed -i 's/m_host=${input_option_host/#m_host=${input_option_host/' /$(xx-info sysroot)usr/lib/wx/config/gtk3-unicode-3.2
 fi
 
+# Create the meson cross compile file.
+echo "[binaries]
+pkg-config = '$(xx-info)-pkg-config'
+strip = '$(xx-info)-strip'
+
+[properties]
+sys_root = '$(xx-info sysroot)'
+pkg_config_libdir = [ '$(xx-info sysroot)usr/lib/pkgconfig', '$(xx-info sysroot)usr/share/pkgconfig' ]
+
+[host_machine]
+system = 'linux'
+cpu_family = '$(xx-info arch)'
+cpu = '$(xx-info arch)'
+endian = 'little'
+" > /tmp/meson-cross.txt
+
 #
 # Download sources.
 #
@@ -76,6 +101,10 @@ curl -# -L -f "$FILEZILLA_URL" | tar xJ --strip 1 -C /tmp/filezilla
 log "Downloading libfilezilla package..."
 mkdir /tmp/libfilezilla
 curl -# -L -f "$LIBFILEZILLA_URL" | tar xJ --strip 1 -C /tmp/libfilezilla
+
+log "Downloading fzssh package..."
+mkdir /tmp/fzssh
+curl -# -L -f "$FZSSH_URL" | tar xJ --strip 1 -C /tmp/fzssh
 
 #
 # Compile libfilezilla
@@ -105,6 +134,28 @@ make -C /tmp/libfilezilla -j$(nproc)
 log "Installing libfilezilla..."
 make DESTDIR=$(xx-info sysroot) -C /tmp/libfilezilla install
 make DESTDIR=/tmp/filezilla-install -C /tmp/libfilezilla install
+
+#
+# Compile fzssh
+#
+
+log "Patching fzssh..."
+patch -p1 -d /tmp/fzssh < "$SCRIPT_DIR"/fix-compilation-fzssh.patch
+
+log "Configuring fzssh..."
+(
+    cd /tmp/fzssh && abuild-meson \
+        -Db_lto=true \
+        --cross-file /tmp/meson-cross.txt \
+        . build
+)
+
+log "Compiling fzssh..."
+meson compile -C /tmp/fzssh/build
+
+log "Installing fzssh..."
+DESTDIR=/tmp/filezilla-install meson install --no-rebuild -C /tmp/fzssh/build
+DESTDIR=$(xx-info sysroot) meson install --no-rebuild -C /tmp/fzssh/build
 
 #
 # Compile FileZilla

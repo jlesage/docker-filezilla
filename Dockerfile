@@ -8,11 +8,13 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG LIBFILEZILLA_VERSION=0.54.1
-ARG FILEZILLA_VERSION=3.69.6
+ARG LIBFILEZILLA_VERSION=0.56.1
+ARG FZSSH_VERSION=1.3.0
+ARG FILEZILLA_VERSION=3.70.6
 
 # Define software download URLs.
 ARG LIBFILEZILLA_URL=https://sources.archlinux.org/other/libfilezilla/libfilezilla-${LIBFILEZILLA_VERSION}.tar.xz
+ARG FZSSH_URL=https://sources.archlinux.org/other/packages/fzssh/fzssh-${FZSSH_VERSION}.tar.xz
 ARG FILEZILLA_URL=https://sources.archlinux.org/other/filezilla/filezilla-${FILEZILLA_VERSION}.tar.xz
 
 # Get Dockerfile cross-compilation helpers.
@@ -23,9 +25,10 @@ FROM --platform=$BUILDPLATFORM alpine:3.20 AS filezilla
 ARG TARGETPLATFORM
 ARG FILEZILLA_URL
 ARG LIBFILEZILLA_URL
+ARG FZSSH_URL
 COPY --from=xx / /
 COPY src/filezilla /build
-RUN /build/build.sh "$FILEZILLA_URL" "$LIBFILEZILLA_URL"
+RUN /build/build.sh "$FILEZILLA_URL" "$LIBFILEZILLA_URL" "$FZSSH_URL"
 RUN xx-verify \
     /tmp/filezilla-install/usr/bin/filezilla
 
@@ -44,6 +47,7 @@ RUN \
         wxwidgets-gtk3 \
         libidn \
         sqlite-libs \
+        argon2-libs \
         # Need a font.
         ttf-dejavu \
         # The following package is used to send key presses to close FileZilla.
@@ -60,6 +64,9 @@ RUN \
 COPY rootfs/ /
 COPY --from=filezilla /tmp/filezilla-install/usr/bin /usr/bin
 COPY --from=filezilla /tmp/filezilla-install/usr/lib/libfilezilla.so* /usr/lib/
+COPY --from=filezilla /tmp/filezilla-install/usr/lib/libfzssh.so* /usr/lib/
+COPY --from=filezilla /tmp/filezilla-install/usr/lib/libfzssh-client.so* /usr/lib/
+COPY --from=filezilla /tmp/filezilla-install/usr/lib/libfzssh-crypt.so* /usr/lib/
 COPY --from=filezilla /tmp/filezilla-install/usr/share/filezilla /usr/share/filezilla
 COPY --from=filezilla /tmp/filezilla-install/usr/share/icons /usr/share/icons
 COPY --from=filezilla /tmp/filezilla-install/usr/share/locale /usr/share/locale

@@ -1,0 +1,11 @@
+--- a/lib/sftp.cpp
++++ b/lib/sftp.cpp
+@@ -144,7 +144,7 @@
+ 	wait_read_ = false;
+ 
+ 	if (!in_packet_) {
+-		in_packet_.emplace();
++		in_packet_.emplace(packet_type{});
+ 	}
+ 
+ 	std::string_view packet;
