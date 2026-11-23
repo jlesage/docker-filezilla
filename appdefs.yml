@@ -23,6 +23,12 @@ app:
     category: Network:FTP
   documentation:
   changelog:
+    - version: 26.11.1
+      date: 2026-11-23
+      changes:
+        - 'Updated FileZilla to version 3.72.1.'
+        - 'Updated libfileilla to version 0.57.0.'
+        - 'Updated fzssh to version 1.4.0.'
     - version: 26.09.2
       date: 2026-09-22
       changes:
